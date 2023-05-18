@@ -22,7 +22,7 @@ public class Graph {
     }
 
     public void addVertex(String city) {
-        if (numVertices < adjacencyMatrix.length) {
+        if (numVertices == adjacencyMatrix.length) {
             cities[numVertices] = city;
             numVertices++;
         } else {
