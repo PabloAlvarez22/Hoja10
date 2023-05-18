@@ -17,7 +17,7 @@ public class Graph {
         if (source >= 0 && source < numVertices && destination >= 0 && destination < numVertices) {
             adjacencyMatrix[source][destination] = travelTime;
         } else {
-            throw new IndexOutOfBoundsException("Invalid vertex index");
+            throw new IndexOutOfBoundsException("Vértice invalido");
         }
     }
 
@@ -26,7 +26,7 @@ public class Graph {
             cities[numVertices] = city;
             numVertices++;
         } else {
-            throw new IllegalStateException("Graph is already at maximum capacity");
+            throw new IllegalStateException("Grafo lleno");
         }
     }
 
@@ -34,7 +34,7 @@ public class Graph {
         if (source >= 0 && source < numVertices && destination >= 0 && destination < numVertices) {
             adjacencyMatrix[source][destination] = 0;
         } else {
-            throw new IndexOutOfBoundsException("Invalid vertex index");
+            throw new IndexOutOfBoundsException("Vértice invalido");
         }
     }
 
@@ -42,24 +42,24 @@ public class Graph {
         if (source >= 0 && source < numVertices && destination >= 0 && destination < numVertices) {
             return adjacencyMatrix[source][destination] != 0;
         } else {
-            throw new IndexOutOfBoundsException("Invalid vertex index");
+            throw new IndexOutOfBoundsException("Vértice invalido");
         }
     }
 
-    public void printGraph() {
+    public void printGraph() { 
         for (int i = 0; i < numVertices; i++) {
             System.out.print(cities[i] + ": ");
             for (int j = 0; j < numVertices; j++) {
                 if (adjacencyMatrix[i][j] != 0) {
-                    System.out.print(cities[j] + "(" + adjacencyMatrix[i][j] + " mins) ");
+                    System.out.print(cities[j] + "(" + adjacencyMatrix[i][j] + " minutos) ");
                 }
             }
             System.out.println();
         }
-    }
+    } // Imprime el grafo
 
     
-    public int calculateCenter() {
+    public int calculateCenter() { // Calcula el centro de grafo
         int[] eccentricities = new int[numVertices];
         for (int i = 0; i < numVertices; i++) {
             eccentricities[i] = calculateEccentricity(i);
@@ -70,10 +70,10 @@ public class Graph {
                 return i;
             }
         }
-        return -1; // Return -1 if the graph is empty
+        return -1; // Retorna el valro -1 si el grafo está vacio
     }
 
-    private int calculateEccentricity(int vertex) {
+    private int calculateEccentricity(int vertex) { // Calcula la excentricidad
         int[] distances = new int[numVertices];
         Arrays.fill(distances, Integer.MAX_VALUE);
         distances[vertex] = 0;
@@ -93,7 +93,7 @@ public class Graph {
         }
 
         int maxDistance = Arrays.stream(distances).max().getAsInt();
-        return maxDistance != Integer.MAX_VALUE ? maxDistance : -1; // Return -1 if vertex is disconnected
+        return maxDistance != Integer.MAX_VALUE ? maxDistance : -1; // Retorna el valor -1 si el vertice está desconcetado
     }
 
     private int getMinDistanceVertex(int[] distances, boolean[] visited) {
@@ -106,6 +106,19 @@ public class Graph {
             }
         }
         return minDistanceVertex;
+    } // Retorna la minima distancia entre vertices
+    
+    public int getNumVertices() {
+        return numVertices;
+    } // Encuentra la cantidad de vertices
+    
+    
+    public String getCityName(int vertex) {
+        if (vertex >= 0 && vertex < numVertices) {
+            return cities[vertex];
+        } else {
+            throw new IndexOutOfBoundsException("Invalid vertex index");
+        }
     }
 
 	
